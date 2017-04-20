@@ -55,13 +55,24 @@
 		<servlet-name>Spring-Servlet</servlet-name>
 		<url-pattern>*.shtml</url-pattern>
 	</servlet-mapping>
-	
-	
+	<!-- //cxf -->
+	<servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>
+			org.apache.cxf.transport.servlet.CXFServlet
+		</servlet-class>
+	<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
 	
 	<!-- 图片验证码配置开始 -->
 	<servlet>
 		<servlet-name>ImageServlet</servlet-name>
-		<servlet-class> com.sys.servlet.ImageServlet</servlet-class>
+		<servlet-class>com.sys.servlet.ImageServlet</servlet-class>
 		<init-param>
 			<param-name>width</param-name>
 			<param-value>65</param-value>

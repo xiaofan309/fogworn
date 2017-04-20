@@ -9,15 +9,14 @@ import com.fogworn.mapper.TbDevlogMapper;
 import com.fogworn.service.TbDevlogService;
 
 /**
- * 
- * <br>
- * <b>功能：</b>TbDevlogService<br>
+ * 功能：TbDevlogService
  */
 @Service("tbDevlogService")
-public class TbDevlogServiceImpl extends BaseService<TbDevlog> implements TbDevlogService {
+public class TbDevlogServiceImpl extends BaseService<TbDevlog> implements
+		TbDevlogService {
 	@Autowired
-    private TbDevlogMapper<TbDevlog> mapper;
-	
+	private TbDevlogMapper<TbDevlog> mapper;
+
 	public TbDevlogMapper<TbDevlog> getMapper() {
 		return mapper;
 	}
