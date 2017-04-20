@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fogworn.mapper.TbVisibHistoryMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.fogworn.bean.TbVisibHistory" >
+	<result column="devid" property="devid"/>
+	<result column="visibility" property="visibility"/>
+	<result column="dt" property="dt"/>
+</resultMap>
+       
+<!-- tb_visib_history table all fields -->
+<sql id="Base_Column_List" >
+	 t.devid,t.visibility,t.dt
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="devid != null" >
+	    and t.devid =  #{devid}
+	</if>
+	<if test="visibility != null" >
+	    and t.visibility =  #{visibility}
+	</if>
+	<if test="beginDt != null" >
+	    and t.dt >=  #{beginDt}
+	</if>
+	<if test="endDt != null" >
+	    and t.dt &lt;=  #{endDt}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into tb_visib_history(devid,visibility,dt)
+ values(#{devid},#{visibility},#{dt})
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="Object" >
+  update tb_visib_history set visibility=#{visibility},dt=#{dt} where devid=#{devid}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="Object" >
+	update tb_visib_history set 
+	<trim  suffixOverrides="," >
+	<if test="visibility != null  ">
+		visibility=#{visibility},
+	</if>
+	<if test="dt != null  ">
+		dt=#{dt},
+	</if>
+	</trim> where devid=#{devid}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete 	 from tb_visib_history where devid = #{devid}
+</delete>
+ 
+<!-- 根据id查询 浓见度历史值表 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from tb_visib_history t where devid = #{devid}
+</select>
+
+<!-- 浓见度历史值表 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from tb_visib_history t
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询浓见度历史值表列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from tb_visib_history t
+	<include refid="Example_Where_Clause"/>
+	order by t.dt desc
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+  	
+  	<select id="listByDevid" resultMap="BaseResultMap"  parameterType="Object">
+  		select 
+			<include refid="Base_Column_List"/>
+		from tb_visib_history t
+		<include refid="Example_Where_Clause"/>
+		order by t.dt desc
+	</select>
+	
+	<select id="devList" resultType="com.fogworn.bean.TbDev">
+		select t.* from tb_dev t where t.id in (select distinct devid from tb_visib_history) order by t.id
+	</select>
+</mapper>   

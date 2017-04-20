@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fogworn.mapper.TbDevparams2Mapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.fogworn.bean.TbDevparams2" >
+	<result column="id" property="id"/>
+	<result column="worktype" property="worktype"/>
+	<result column="guidlights" property="guidlights"/>
+	<result column="flickerfrequency" property="flickerfrequency"/>
+	<result column="luminance" property="luminance"/>
+	<result column="lightopen" property="lightopen"/>
+	<result column="lighttime" property="lighttime"/>
+</resultMap>
+       
+<!-- tb_devparams2 table all fields -->
+<sql id="Base_Column_List" >
+	 t.id,t.worktype,t.guidlights,t.flickerfrequency,t.luminance,t.lightopen,t.lighttime
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id =  #{id}
+	</if>
+	<if test="worktype != null" >
+	    and t.worktype =  #{worktype}
+	</if>
+	<if test="guidlights != null" >
+	    and t.guidlights =  #{guidlights}
+	</if>
+	<if test="flickerfrequency != null" >
+	    and t.flickerfrequency =  #{flickerfrequency}
+	</if>
+	<if test="luminance != null" >
+	    and t.luminance =  #{luminance}
+	</if>
+	<if test="lightopen != null" >
+	    and t.lightopen =  #{lightopen}
+	</if>
+	<if test="lighttime != null" >
+	    and t.lighttime =  #{lighttime}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  insert into tb_devparams2(id,worktype,guidlights,flickerfrequency,luminance,lightopen,lighttime)
+ values(#{id},#{worktype},#{guidlights},#{flickerfrequency},#{luminance},#{lightopen},#{lighttime})
+</insert>
+
+<!-- 根据，修改记录-->  
+ <update id="update" parameterType="Object" >
+ update worktype=#{worktype},guidlights=#{guidlights},flickerfrequency=#{flickerfrequency},luminance=#{luminance},
+ lightopen=#{lightopen},lighttime=#{lighttime} where id=#{id}
+ </update>
+ 
+  <update id="update2" parameterType="Object" >
+ insert into tb_devparams2(id,worktype,guidlights,flickerfrequency,luminance,lightopen,lighttime)
+ values(#{id},#{worktype},#{guidlights},#{flickerfrequency},#{luminance},#{lightopen},#{lighttime})
+ on duplicate key 
+ update guidlights=#{guidlights},flickerfrequency=#{flickerfrequency},luminance=#{luminance},lightopen=#{lightopen},lighttime=#{lighttime}
+ </update>
+ <select id="queryByParamIdAndWorkType"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from tb_devparams2 t where id = #{id} and worktype=#{worktype}
+</select>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="Object" >
+	update tb_devparams2 set 
+	<trim  suffixOverrides="," >
+	<if test="worktype != null  ">
+		worktype=#{worktype},
+	</if>
+	<if test="guidlights != null  ">
+		guidlights=#{guidlights},
+	</if>
+	<if test="flickerfrequency != null  ">
+		flickerfrequency=#{flickerfrequency},
+	</if>
+	<if test="luminance != null  ">
+		luminance=#{luminance},
+	</if>
+	<if test="lightopen != null  ">
+		lightopen=#{lightopen},
+	</if>
+	<if test="lighttime != null  ">
+		lighttime=#{lighttime},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete 	 from tb_devparams2 where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 参数扩展 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from tb_devparams2 t where id = #{id}
+</select>
+
+<!-- 参数扩展 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from tb_devparams2 t
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询参数扩展列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from tb_devparams2 t
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+  	
+</mapper>   

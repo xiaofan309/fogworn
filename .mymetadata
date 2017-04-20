@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="fogworn"
+  id="myeclipse.1490776228424"
+  context-root="/fogworn"
+  j2ee-spec="5.0"
+  archive="fogworn.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

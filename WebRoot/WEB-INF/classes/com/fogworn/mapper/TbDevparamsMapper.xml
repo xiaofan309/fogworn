@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fogworn.mapper.TbDevparamsMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.fogworn.bean.TbDevparams" >
+	<result column="id" property="id"/>
+	<result column="devid" property="devid"/>
+	<result column="devstate" property="devstate"/>
+	<result column="visibility" property="visibility"/>
+	<result column="guidlights" property="guidlights"/>
+	<result column="luminance" property="luminance"/>
+	<result column="flickerfrequency" property="flickerfrequency"/>
+	<result column="luminancethreshold" property="luminancethreshold"/>
+	<result column="workpoint" property="workpoint"/>
+	<result column="nightenable" property="nightenable"/>
+	<result column="limitspeed" property="limitspeed"/>
+	<result column="sendtype" property="sendtype"/>
+	<result column="worktype" property="worktype"/>
+	<result column="measuretype" property="measuretype"/>
+	<result column="measurenum" property="measurenum"/>
+	<result column="lightopen" property="lightopen"/>
+	<result column="lighttime" property="lighttime"/>
+</resultMap>
+<resultMap type="com.fogworn.bean.TbDevparamsEx" id="ExtendResultMap">
+	<result column="devno" property="devno"/>
+	<result column="devnm" property="devnm"/>
+	<result column="devip" property="devip"/>
+	<result column="onlinetime" property="onlinetime"/>
+	<result column="offlinetime" property="offlinetime"/>
+	<result column="curstate" property="curstate"/>
+	<result column="devtype" property="devtype"/>
+</resultMap>
+<!-- tb_devparams table all fields -->
+<sql id="Base_Column_List" >
+	 t.id,t.devid,t.devstate,t.visibility,t.guidlights,t.luminance,t.flickerfrequency,t.luminancethreshold,t.workpoint,t.nightenable
+	 ,t.limitspeed,t.sendtype,t.worktype,t.measuretype,t.measurenum,t.lightopen,t.lighttime
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id =  #{id}
+	</if>
+	 	<if test="devid != null and devid != ''" >
+	    and t.devid like '%'||#{devid}||'%'
+	</if>
+	 	<if test="devstate != null and devstate != ''" >
+	    and t.devstate =  #{devstate}
+	</if>
+	<if test="visibility != null" >
+	    and t.visibility =  #{visibility}
+	</if>
+	<if test="guidlights != null" >
+	    and t.guidlights =  #{guidlights}
+	</if>
+	<if test="luminance != null" >
+	    and t.luminance =  #{luminance}
+	</if>
+	<if test="flickerfrequency != null" >
+	    and t.flickerfrequency =  #{flickerfrequency}
+	</if>
+	<if test="luminancethreshold != null" >
+	    and t.luminancethreshold =  #{luminancethreshold}
+	</if>
+	<if test="workpoint != null" >
+	    and t.workpoint =  #{workpoint}
+	</if>
+	<if test="nightenable != null" >
+	    and t.nightenable =  #{nightenable}
+	</if>
+</trim>
+</sql>
+
+<sql id="Extend_Where_Clause">
+<trim  suffixOverrides="," >
+	 	<if test="devno != null and devno != ''" >
+	    and d.devno like CONCAT('%',${devno},'%' )
+	</if>
+	 	<if test="devnm != null and devnm != ''" >
+	    and d.devnm like  CONCAT('%',${devnm},'%' )
+	</if>
+	<if test="curstate != null and curstate != ''" >
+	    and d.curstate =  #{curstate}
+	</if>
+	 	<if test="devtype != null and devtype != ''" >
+	    and d.devtype =  #{devtype}
+	</if>
+</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into tb_devparams(id,devid,devstate,visibility,guidlights,luminance,flickerfrequency,luminancethreshold,workpoint,nightenable
+  ,limitspeed,sendtype,worktype,measuretype,measurenum,lightopen,lighttime)
+ values(#{id},#{devid},#{devstate},#{visibility},#{guidlights},#{luminance},#{flickerfrequency},#{luminancethreshold},#{workpoint},#{nightenable}
+ 	,#{limitspeed},#{sendtype},#{worktype},#{measuretype},#{measurenum},#{lightopen},#{lighttime})
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="Object" >
+  update tb_devparams set devstate=#{devstate},visibility=#{visibility},guidlights=#{guidlights},luminance=#{luminance},
+  	flickerfrequency=#{flickerfrequency},luminancethreshold=#{luminancethreshold},workpoint=#{workpoint},nightenable=#{nightenable}
+  	,limitspeed=#{limitspeed},sendtype=#{sendtype},worktype=#{worktype},measuretype=#{measuretype},measurenum=#{measurenum}
+  	,lightopen=#{lightopen},lighttime=#{lighttime} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="Object" >
+	update tb_devparams set 
+	<trim  suffixOverrides="," >
+	<if test="devstate != null  and devstate != '' ">
+		devstate=#{devstate},
+	</if>
+	<if test="visibility != null  ">
+		visibility=#{visibility},
+	</if>
+	<if test="guidlights != null  ">
+		guidlights=#{guidlights},
+	</if>
+	<if test="luminance != null  ">
+		luminance=#{luminance},
+	</if>
+	<if test="flickerfrequency != null  ">
+		flickerfrequency=#{flickerfrequency},
+	</if>
+	<if test="luminancethreshold != null  ">
+		luminancethreshold=#{luminancethreshold},
+	</if>
+	<if test="workpoint != null  ">
+		workpoint=#{workpoint},
+	</if>
+	<if test="nightenable != null  ">
+		nightenable=#{nightenable},
+	</if>
+	<if test="limitspeed != null  ">
+		limitspeed=#{limitspeed},
+	</if>
+	<if test="sendtype != null  ">
+		sendtype=#{sendtype},
+	</if>
+	<if test="worktype != null  ">
+		worktype=#{worktype},
+	</if>
+	<if test="measuretype != null  ">
+		measuretype=#{measuretype},
+	</if>
+	<if test="measurenum != null  ">
+		measurenum=#{measurenum},
+	</if>
+	<if test="lightopen != null  ">
+		lightopen=#{lightopen},
+	</if>
+	<if test="lighttime != null  ">
+		lighttime=#{lighttime}
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateSelectiveByDevId" parameterType="Object" >
+	update tb_devparams set 
+	<trim  suffixOverrides="," >
+	<if test="devstate != null  and devstate != '' ">
+		devstate=#{devstate},
+	</if>
+	<if test="visibility != null  ">
+		visibility=#{visibility},
+	</if>
+	<if test="guidlights != null  ">
+		guidlights=#{guidlights},
+	</if>
+	<if test="luminance != null  ">
+		luminance=#{luminance},
+	</if>
+	<if test="flickerfrequency != null  ">
+		flickerfrequency=#{flickerfrequency},
+	</if>
+	<if test="luminancethreshold != null  ">
+		luminancethreshold=#{luminancethreshold},
+	</if>
+	<if test="workpoint != null  ">
+		workpoint=#{workpoint},
+	</if>
+	<if test="nightenable != null  ">
+		nightenable=#{nightenable},
+	</if>
+	<if test="limitspeed != null  ">
+		limitspeed=#{limitspeed},
+	</if>
+	<if test="sendtype != null  ">
+		sendtype=#{sendtype},
+	</if>
+	<if test="worktype != null  ">
+		worktype=#{worktype},
+	</if>
+	<if test="measuretype != null  ">
+		measuretype=#{measuretype},
+	</if>
+	<if test="measurenum != null  ">
+		measurenum=#{measurenum},
+	</if>
+	<if test="lightopen != null  ">
+		lightopen=#{lightopen},
+	</if>
+	<if test="lighttime != null  ">
+		lighttime=#{lighttime}
+	</if>
+	</trim> where devid=#{devid}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete 	 from tb_devparams where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 设备参数表 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from tb_devparams t 
+	 where t.id = #{id}
+</select>
+
+<!-- 设备参数表 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from tb_devparams t
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询设备参数表列表 -->
+<select id="queryByList" resultMap="ExtendResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from tb_devparams t
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+ 
+<!-- 根据id查询 设备参数表 -->
+<select id="queryExById"  resultMap="ExtendResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	,d.devno,d.devnm,d.devip,d.onlinetime,d.offlinetime,d.curstate,d.devtype
+	 from tb_devparams t 
+	 join tb_dev d on t.devid=d.id
+	 where t.id = #{id}
+</select>
+
+<!-- 设备参数表 列表总数-->
+<select id="queryExByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from tb_devparams t join tb_dev d on t.devid=d.id
+	<include refid="Example_Where_Clause"/>
+	<include refid="Extend_Where_Clause"/>
+</select>
+  	
+<!-- 查询设备参数表列表 -->
+<select id="queryExByList" resultMap="ExtendResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,d.devno,d.devnm,d.devip,d.onlinetime,d.offlinetime,d.curstate,d.devtype
+	from tb_devparams t join tb_dev d on t.devid=d.id
+	<include refid="Example_Where_Clause"/>
+	<include refid="Extend_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+
+<delete id="deleteByDevId" parameterType="Object">
+	delete 	 from tb_devparams where devid = #{devid}
+</delete>
+
+<select id="getLogs" parameterType="int" resultType="com.fogworn.bean.TbDevlog">
+	select * from tb_devlog where devid=#{devid} and flag=1
+</select>
+<update id="clearLogs" parameterType="map">
+	update tb_devlog set flag=0 where devid=#{devid} and id in
+	<foreach collection="logIds" open="(" close=")" separator="," item="id">id</foreach>
+</update>
+
+</mapper>   

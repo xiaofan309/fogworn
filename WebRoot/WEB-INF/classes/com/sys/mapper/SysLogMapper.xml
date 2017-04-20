@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.mapper.SysLogMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.sys.bean.SysLog" >
+	<result column="id" property="id"/>
+	<result column="table_name" property="table_name"/>
+	<result column="primary_id" property="primary_id"/>
+	<result column="do_user_id" property="do_user_id"/>
+	<result column="do_user_name" property="do_user_name"/>
+	<result column="do_type" property="do_type"/>
+	<result column="description" property="description"/>
+	<result column="do_time" property="do_time"/>
+</resultMap>
+       
+<!-- sys_log table all fields -->
+<sql id="Base_Column_List" >
+	 id,table_name,primary_id,do_user_id,do_user_name,do_type,description,do_time
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="table_name != null and table_name != ''" >
+	    and table_name =  #{table_name}
+	</if>
+	<if test="primary_id != null" >
+	    and primary_id =  #{primary_id}
+	</if>
+	<if test="do_user_id != null" >
+	    and do_user_id =  #{do_user_id}
+	</if>
+	 	<if test="do_user_name != null and do_user_name != ''" >
+	    and do_user_name =  #{do_user_name}
+	</if>
+	 	<if test="do_type != null and do_type != ''" >
+	    and do_type =  #{do_type}
+	</if>
+	 	<if test="description != null and description != ''" >
+	    and description =  #{description}
+	</if>
+	 	<if test="do_time != null and do_time != ''" >
+	    and do_time =  #{do_time}
+	</if>
+	 	<if test="do_time_b != null and do_time_b != ''" >
+	    and do_time >  #{do_time_b}
+	</if>
+	 	<if test="do_time_e != null and do_time_e != ''" >
+	    and do_time &lt;  #{do_time_e}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into sys_log(id,table_name,primary_id,do_user_id,do_user_name,do_type,description,do_time)
+ values(#{id},#{table_name},#{primary_id},#{do_user_id},#{do_user_name},#{do_type},#{description},#{do_time})
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="Object" >
+  update sys_log set table_name=#{table_name},primary_id=#{primary_id},do_user_id=#{do_user_id},do_user_name=#{do_user_name},do_type=#{do_type},description=#{description},do_time=#{do_time} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="Object" >
+	update sys_log set 
+	<trim  suffixOverrides="," >
+	<if test="table_name != null  and table_name != '' ">
+		table_name=#{table_name},
+	</if>
+	<if test="primary_id != null  ">
+		primary_id=#{primary_id},
+	</if>
+	<if test="do_user_id != null  ">
+		do_user_id=#{do_user_id},
+	</if>
+	<if test="do_user_name != null  and do_user_name != '' ">
+		do_user_name=#{do_user_name},
+	</if>
+	<if test="do_type != null  and do_type != '' ">
+		do_type=#{do_type},
+	</if>
+	<if test="description != null  and description != '' ">
+		description=#{description},
+	</if>
+	<if test="do_time != null  and do_time != '' ">
+		do_time=#{do_time},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete 	 from sys_log where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 系统日志 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from sys_log where id = #{id}
+</select>
+
+<!-- 系统日志 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from sys_log 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询系统日志列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from sys_log 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+  	
+</mapper>   
