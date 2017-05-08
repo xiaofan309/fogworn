@@ -13,6 +13,8 @@ public interface TbDevparamsService {
 	
 	TbDevparamsEx queryExById(Object id) throws Exception;
 	
+	TbDevparamsEx queryExByDevId(Object devid) throws Exception;
+	
 	void update(TbDevparams t)  throws Exception;
 	
 	void add(TbDevparams t)  throws Exception;

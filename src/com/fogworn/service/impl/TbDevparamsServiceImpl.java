@@ -148,6 +148,10 @@ public class TbDevparamsServiceImpl extends BaseService<TbDevparams> implements 
 	public TbDevparamsEx queryExById(Object id) throws Exception {
 		return mapper.queryExById(id);
 	}
+	
+	public TbDevparamsEx queryExByDevId(Object devid) throws Exception {
+		return mapper.queryExByDevId(devid);
+	}
 
 //	@Override
 	public List<TbDevparamsEx> queryExByList(BaseModel model) throws Exception {

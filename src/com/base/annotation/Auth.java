@@ -1,6 +1,5 @@
 package com.base.annotation;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -19,7 +18,3 @@ public @interface Auth
 }
 
 
-/* Location:           C:\Users\congxiaofan\Desktop\
- * Qualified Name:     com.base.annotation.Auth
- * JD-Core Version:    0.7.0.1
- */

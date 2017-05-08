@@ -24,9 +24,13 @@ public interface TbDevparamsMapper<T> extends BaseMapper<T> {
 	
 	public TbDevparamsEx queryExById(Object id);
 	
+	public TbDevparamsEx queryExByDevId(Object devid);
+	
 	public void updateSelectiveByDevId(Object t);
 	
 	List<TbDevlog> getLogs(Integer devid);
 	
 	int clearLogs(@Param("devid")Integer devid, @Param("logIds")String[] logIds);
+
+	
 }

@@ -257,6 +257,15 @@ where 1=1
 	 where t.id = #{id}
 </select>
 
+<!-- 根据devid查询 设备参数表 -->
+<select id="queryExByDevId"  resultMap="ExtendResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	,d.devno,d.devnm,d.devip,d.onlinetime,d.offlinetime,d.curstate,d.devtype
+	 from tb_devparams t 
+	 join tb_dev d on t.devid=d.id
+	 where t.devid = #{devid}
+</select>
+
 <!-- 设备参数表 列表总数-->
 <select id="queryExByCount" resultType="java.lang.Integer"  parameterType="Object">
 	select count(1) from tb_devparams t join tb_dev d on t.devid=d.id
