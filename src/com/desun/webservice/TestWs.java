@@ -13,7 +13,7 @@ public class TestWs {
 		// 注册WebService接口
 		factory.setServiceClass(DesunService.class);
 		// 设置WebService地址
-		factory.setAddress("http://127.0.0.1:8080/fogworn/services/interface.ws?wsdl");
+		factory.setAddress("http://127.0.0.1:8080/fogworn/services/desun.ws?wsdl");
 
 		DesunService desunService = (DesunService) factory.create();
 

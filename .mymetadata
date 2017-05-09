@@ -3,7 +3,7 @@
   type="WEB"
   name="fogworn"
   id="myeclipse.1490776228424"
-  context-root="/fogwarn"
+  context-root="/fogworn"
   j2ee-spec="5.0"
   archive="fogworn.war">
   <attributes>
