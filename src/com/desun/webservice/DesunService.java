@@ -1,11 +1,17 @@
 package com.desun.webservice;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 
-@WebService
+@WebService(targetNamespace = "http://webservice.desun.com/", name = "DesunService", serviceName = "DesunService")
 public interface DesunService {
-	public String getVisibility(String xmlStr);// 获取能见度
-	
+	@WebResult(name = "return", targetNamespace = "http://webservice.desun.com/")
+	@WebMethod
+	public String getVisibility(
+			@WebParam(name = "arg0", targetNamespace = "http://webservice.desun.com/") String xmlStr);// 获取能见度
+
 	public String getCurstate(String xmlStr);// 获取参数
 
 	public String getParameter(String xmlStr);// 获取参数

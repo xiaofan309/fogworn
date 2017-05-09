@@ -17,7 +17,7 @@ public class TestWs {
 
 		DesunService desunService = (DesunService) factory.create();
 
-		System.out.println(desunService.getVisibility("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+		System.out.println(desunService.getVisibility("<?xml version=\"1.0\" encoding=\"GBK\"?>" + "<root>"
 				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
 
 		System.out.println(desunService.getCurstate("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"

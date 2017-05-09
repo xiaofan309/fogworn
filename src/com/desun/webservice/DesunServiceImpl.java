@@ -6,6 +6,9 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,7 +27,7 @@ import com.fogworn.bean.TbDevparamsEx;
 import com.fogworn.service.TbDevService;
 import com.fogworn.service.TbDevparamsService;
 
-@WebService(endpointInterface = "com.desun.webservice.DesunService")
+@WebService(targetNamespace = "http://webservice.desun.com/", name = "DesunService", serviceName = "DesunService")
 public class DesunServiceImpl implements DesunService {
 
 	@Autowired
@@ -33,7 +36,10 @@ public class DesunServiceImpl implements DesunService {
 	private TbDevService tbDevService;
 
 	// private TbDevparams tbDevparams;
-	public String getVisibility(String xmlStr) {
+	@WebResult(name = "return", targetNamespace = "http://webservice.desun.com/")
+	@WebMethod
+	public String getVisibility(
+			@WebParam(name = "arg0", targetNamespace = "http://webservice.desun.com/") String xmlStr) {
 
 		String devIdStr = parserVisibilityXml(xmlStr);
 		TbDev tbDev;
@@ -817,7 +823,7 @@ public class DesunServiceImpl implements DesunService {
 				if ("devstate".equals(devIds.item(j).getNodeName())) {
 					map.put("devstate", devIds.item(j).getTextContent());
 				}
-				
+
 			}
 
 			// if (devId.getNodeType() == Node.ELEMENT_NODE) {
