@@ -15,135 +15,131 @@ import com.fogworn.bean.TbDev;
 
 @Component
 public class FogWarnExinterface {
-	
+
 	private final static Logger logger = Logger.getLogger(FogWarnExinterface.class);
-	private final static long TIME_OUT=8000; 
-	private final static String CommTimeOut="通讯超时";
+	private final static long TIME_OUT = 8000;
+	private final static String CommTimeOut = "通讯超时";
 	@Autowired
 	private DesunProtocal desunProtocal;
-	
-	private byte[] dataInterchange(TbDev dev,byte[] sendData){
-		if(null==sendData){
+
+	private byte[] dataInterchange(TbDev dev, byte[] sendData) {
+		if (null == sendData) {
 			return null;
 		}
 		BlockingQueue<byte[]> blockingQueue = new LinkedBlockingQueue<byte[]>();
-//		IoSession session=ServerHandler.getSession(dev.getDevno());
-		IoSession session=ServerHandler.getSession(dev.getDevno());
-		if(null==session){
+		// IoSession session=ServerHandler.getSession(dev.getDevno());
+		IoSession session = ServerHandler.getSession(dev.getDevno());
+		if (null == session) {
 			return null;
 		}
 		session.setAttribute(ServerHandler.RECEIVE_DATA, blockingQueue);
-		logger.warn("sendData="+BitConverter.bytes2HexStr(sendData));
+		logger.warn("sendData=" + BitConverter.bytes2HexStr(sendData));
 		session.write(IoBuffer.wrap(sendData));
-		byte[] receiveData=null;
+		byte[] receiveData = null;
 		try {
 			receiveData = blockingQueue.poll(TIME_OUT, TimeUnit.MILLISECONDS);
-			logger.warn("receiveData="+BitConverter.bytes2HexStr(receiveData));
+			logger.warn("receiveData=" + BitConverter.bytes2HexStr(receiveData));
 		} catch (InterruptedException e) {
-			receiveData=null;;
+			receiveData = null;
+			;
 		}
 		session.removeAttribute(ServerHandler.RECEIVE_DATA);
 		return receiveData;
 	}
-	
-	
-	public String passDataTransType(TbDev dev,int order){
-		byte[] sendData = desunProtocal.packDataTransType((byte)Long.parseLong(dev.getDevno()),order);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
-	
-	public String nightAutoOn(TbDev dev,boolean order){
-		byte[] sendData = desunProtocal.packNightAutoOn((byte)Long.parseLong(dev.getDevno()),order);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
-	
-	public String visibilityDeal(TbDev dev,int order){
-		byte[] sendData = desunProtocal.packVisibilityDeal((byte)Long.parseLong(dev.getDevno()),order);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
 
-	public String coverOn(TbDev dev,int flickerfrequency,int luminance,int guidlights,boolean tailenable,int taildelay){
-		byte[] sendData = desunProtocal.packCoverOn((byte)Long.parseLong(dev.getDevno()),(byte)flickerfrequency,(byte)luminance,(byte)guidlights,tailenable,taildelay);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
+	public String passDataTransType(TbDev dev, int order) {
+		byte[] sendData = desunProtocal.packDataTransType((byte) Long.parseLong(dev.getDevno()), order);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
 			return CommTimeOut;
 		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
+		return desunProtocal.parseResponse(receiveData, sendData);
 	}
-	
-	
-	public String coverOff(TbDev dev){
-		byte[] sendData = desunProtocal.packCoverOff((byte)Long.parseLong(dev.getDevno()));
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
-	
-	public String passOn(TbDev dev,int flickerfrequency,int luminance,int guidlights,boolean tailenable,int taildelay){
-		byte[] sendData = desunProtocal.packPassOn((byte)Long.parseLong(dev.getDevno()),(byte)flickerfrequency,(byte)luminance,(byte)guidlights,tailenable,taildelay);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
-	
-	public String passOff(TbDev dev){
-		byte[] sendData = desunProtocal.packPassOff((byte)Long.parseLong(dev.getDevno()));
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
-	
 
-	public String fogParam(TbDev dev,int flickerfrequency,int luminance,int guidlights,boolean tailenable,int taildelay){
-		byte[] sendData = desunProtocal.packFogParam((byte)Long.parseLong(dev.getDevno()),(byte)flickerfrequency,(byte)luminance,(byte)guidlights,tailenable,taildelay);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
+	public String nightAutoOn(TbDev dev, boolean order) {
+		byte[] sendData = desunProtocal.packNightAutoOn((byte) Long.parseLong(dev.getDevno()), order);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
 			return CommTimeOut;
 		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
+		return desunProtocal.parseResponse(receiveData, sendData);
 	}
-	
-	
-	
-	
-	public String nightParam(TbDev dev,int flickerfrequency,int luminance,int guidlights,boolean tailenable,int taildelay){
-		byte[] sendData = desunProtocal.packNightParam((byte)Long.parseLong(dev.getDevno()),(byte)flickerfrequency,(byte)luminance,(byte)guidlights,tailenable,taildelay);
-		byte[] receiveData= dataInterchange(dev,sendData);
-		if(null==receiveData){
-			return CommTimeOut;
-		}
-		return desunProtocal.parseResponse(receiveData, sendData) ;
-	}
-	
-	
-	
-	
-	
 
-	
+	public String visibilityDeal(TbDev dev, int order) {
+		byte[] sendData = desunProtocal.packVisibilityDeal((byte) Long.parseLong(dev.getDevno()), order);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+
+	public String coverOn(TbDev dev, int flickerfrequency, int luminance, int guidlights, boolean tailenable,
+			int taildelay) {
+		byte[] sendData = desunProtocal.packCoverOn((byte) Long.parseLong(dev.getDevno()), (byte) flickerfrequency,
+				(byte) luminance, (byte) guidlights, tailenable, taildelay);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+
+	public String coverOff(TbDev dev) {
+		byte[] sendData = desunProtocal.packCoverOff((byte) Long.parseLong(dev.getDevno()));
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+
+	public String passOn(TbDev dev, int flickerfrequency, int luminance, int guidlights, boolean tailenable,
+			int taildelay) {
+		byte[] sendData = desunProtocal.packPassOn((byte) Long.parseLong(dev.getDevno()), (byte) flickerfrequency,
+				(byte) luminance, (byte) guidlights, tailenable, taildelay);
+		System.out.println("sendData=" + sendData.toString());
+		byte[] receiveData = dataInterchange(dev, sendData);
+		System.out.println("receiveData=" + receiveData.toString());
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+
+	public String passOff(TbDev dev) {
+		byte[] sendData = desunProtocal.packPassOff((byte) Long.parseLong(dev.getDevno()));
+		System.out.println("sendDataLength=" + sendData.length);
+		System.out.println("sendData=" + sendData[0] + "+" + sendData[1] + "+" + sendData[2] + "+" + sendData[3] + "+"
+				+ sendData[4] + "+" + sendData[5] + "+" + sendData[6] + "+" + sendData[7]);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		System.out.println("receiveData=" + receiveData.toString());
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+
+	public String fogParam(TbDev dev, int flickerfrequency, int luminance, int guidlights, boolean tailenable,
+			int taildelay) {
+		byte[] sendData = desunProtocal.packFogParam((byte) Long.parseLong(dev.getDevno()), (byte) flickerfrequency,
+				(byte) luminance, (byte) guidlights, tailenable, taildelay);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+
+	public String nightParam(TbDev dev, int flickerfrequency, int luminance, int guidlights, boolean tailenable,
+			int taildelay) {
+		byte[] sendData = desunProtocal.packNightParam((byte) Long.parseLong(dev.getDevno()), (byte) flickerfrequency,
+				(byte) luminance, (byte) guidlights, tailenable, taildelay);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
 
 }

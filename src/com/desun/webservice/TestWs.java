@@ -17,29 +17,29 @@ public class TestWs {
 
 		DesunService desunService = (DesunService) factory.create();
 
-		System.out.println(desunService.getVisibility("<?xml version=\"1.0\" encoding=\"GBK\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
-
-		System.out.println(desunService.getCurstate("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
-
-		System.out.println(desunService.getParameter("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
-
-		System.out.println(desunService.setParameter("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "<worktype>0</worktype>" + "<guidlights>3</guidlights>"
-				+ "<flickerfrequency>3</flickerfrequency>" + "<luminance>5</luminance>" + "<lightopen>1</lightopen>"
-				+ "<lighttime>5</lighttime>" + "</parameter>" + "</root>"));
-
-		System.out.println(desunService.setSendtype("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "<sendtype>0</sendtype>" + "</parameter>" + "</root>"));
-
-		System.out.println(desunService.setNightenable("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "<nightenable>1</nightenable>" + "</parameter>" + "</root>"));
-
-		System.out.println(desunService.setMeasuretype("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
-				+ "<parameter>" + "<devId>1</devId>" + "<measuretype>2</measuretype>" + "<measurenum>3</measurenum>"
-				+ "</parameter>" + "</root>"));
+//		System.out.println(desunService.getVisibility("<?xml version=\"1.0\" encoding=\"GBK\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
+//
+//		System.out.println(desunService.getCurstate("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
+//
+//		System.out.println(desunService.getParameter("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "</parameter>" + "</root>"));
+//
+//		System.out.println(desunService.setParameter("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "<worktype>0</worktype>" + "<guidlights>3</guidlights>"
+//				+ "<flickerfrequency>3</flickerfrequency>" + "<luminance>5</luminance>" + "<lightopen>1</lightopen>"
+//				+ "<lighttime>5</lighttime>" + "</parameter>" + "</root>"));
+//
+//		System.out.println(desunService.setSendtype("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "<sendtype>0</sendtype>" + "</parameter>" + "</root>"));
+//
+//		System.out.println(desunService.setNightenable("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "<nightenable>1</nightenable>" + "</parameter>" + "</root>"));
+//
+//		System.out.println(desunService.setMeasuretype("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
+//				+ "<parameter>" + "<devId>1</devId>" + "<measuretype>2</measuretype>" + "<measurenum>3</measurenum>"
+//				+ "</parameter>" + "</root>"));
 
 		System.out.println(desunService.setDevstate("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<root>"
 				+ "<parameter>" + "<devId>1</devId>" + "<devstate>0</devstate>" + "</parameter>" + "</root>"));

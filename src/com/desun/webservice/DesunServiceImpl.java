@@ -38,8 +38,7 @@ public class DesunServiceImpl implements DesunService {
 	// private TbDevparams tbDevparams;
 	@WebResult(name = "return", targetNamespace = "http://webservice.desun.com/")
 	@WebMethod
-	public String getVisibility(
-			@WebParam(name = "arg0", targetNamespace = "http://webservice.desun.com/") String xmlStr) {
+	public String getVisibility(@WebParam(name = "arg0", targetNamespace = "http://webservice.desun.com/") String xmlStr) {
 
 		String devIdStr = parserVisibilityXml(xmlStr);
 		TbDev tbDev;
@@ -129,7 +128,7 @@ public class DesunServiceImpl implements DesunService {
 		sb.append("</head>");
 		sb.append("<body>");
 		sb.append("<visibility>" + visibility + "</visibility>");
-		sb.append("<body>");
+		sb.append("</body>");
 		sb.append("</root>");
 		return sb.toString();
 	}
@@ -206,7 +205,7 @@ public class DesunServiceImpl implements DesunService {
 		sb.append("<luminance>" + map.get("luminance") + "</luminance>");
 		sb.append("<lightopen>" + map.get("lightopen") + "</lightopen>");
 		sb.append("<lighttime>" + map.get("lighttime") + "</lighttime>");
-		sb.append("<body>");
+		sb.append("</body>");
 		sb.append("</root>");
 		return sb.toString();
 	}
@@ -284,12 +283,25 @@ public class DesunServiceImpl implements DesunService {
 		int state = 0;// 开关机
 		try {
 			TbDevparamsEx tbDevparamsEx = this.tbDevparamsService.queryExByDevId(tbDev.getId());
-			tbDevparamsEx.setWorktype(Integer.parseInt(worktype));
-			tbDevparamsEx.setGuidlights(Integer.parseInt(guidlights));
-			tbDevparamsEx.setFlickerfrequency(Integer.parseInt(flickerfrequency));
-			tbDevparamsEx.setLuminance(Integer.parseInt(luminance));
-			tbDevparamsEx.setLightopen(Integer.parseInt(lightopen));
-			tbDevparamsEx.setLighttime(Integer.parseInt(lighttime));
+			if (worktype != null && !worktype.equals("")) {
+				tbDevparamsEx.setWorktype(Integer.parseInt(worktype));
+			}
+			if (guidlights != null && !guidlights.equals("")) {
+				tbDevparamsEx.setGuidlights(Integer.parseInt(guidlights));
+			}
+			if (flickerfrequency != null && !flickerfrequency.equals("")) {
+				tbDevparamsEx.setFlickerfrequency(Integer.parseInt(flickerfrequency));
+			}
+			if (luminance != null && !luminance.equals("")) {
+				tbDevparamsEx.setLuminance(Integer.parseInt(luminance));
+			}
+			if (lightopen != null && !lightopen.equals("")) {
+				tbDevparamsEx.setLightopen(Integer.parseInt(lightopen));
+			}
+			if (lighttime != null && !lighttime.equals("")) {
+				tbDevparamsEx.setLighttime(Integer.parseInt(lighttime));
+			}
+
 			String result = this.tbDevparamsService.sendParam("params", null, state, tbDevparamsEx);
 			if (result.equals("通讯超时")) {
 				return createSetParameterErrorXml(2);
@@ -747,13 +759,33 @@ public class DesunServiceImpl implements DesunService {
 			e1.printStackTrace();
 			return createSetMeasuretypeErrorXml(1);
 		}
-		int state = 0;// 开关机
+		int state = 0;// 开关机 0:关闭1:开启
 		try {
+			//设置能见度测量方式固定值
 			TbDevparamsEx tbDevparamsEx = this.tbDevparamsService.queryExByDevId(tbDev.getId());
+			if(Integer.parseInt(devstate) == 1){
+				tbDevparamsEx.setMeasuretype(3);				
+				tbDevparamsEx.setMeasurenum(5);				
+				String result = this.tbDevparamsService.sendParam("measuretype", null, state, tbDevparamsEx);
+				if (result.equals("通讯超时")) {
+					return createSetDevstateErrorXml(3);
+				}
+			}
+			//开关机
+			tbDevparamsEx = this.tbDevparamsService.queryExByDevId(tbDev.getId());
 			tbDevparamsEx.setDevstate(Integer.parseInt(devstate));
 			String result = this.tbDevparamsService.sendParam("devstate", null, state, tbDevparamsEx);
 			if (result.equals("当前系统开关过于频繁，请稍后再操作")) {
 				return createSetDevstateErrorXml(2);
+			}
+			//设置能见度测量方式平均值
+			if (Integer.parseInt(devstate) == 0) {
+				tbDevparamsEx = this.tbDevparamsService.queryExByDevId(tbDev.getId());
+				tbDevparamsEx.setMeasuretype(2);
+				result = this.tbDevparamsService.sendParam("measuretype", null, state, tbDevparamsEx);
+				if (result.equals("通讯超时")) {
+					return createSetDevstateErrorXml(3);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -788,6 +820,10 @@ public class DesunServiceImpl implements DesunService {
 		if (errorCode == 2) {
 			sb.append("<code>2</code>");
 			sb.append("<message>当前系统开关过于频繁，请稍后再操作</message>");
+		}
+		if (errorCode == 3) {
+			sb.append("<code>3</code>");
+			sb.append("<message>设置能见度测量方式超时</message>");
 		}
 		sb.append("</head>");
 		sb.append("<body>");
@@ -871,7 +907,7 @@ public class DesunServiceImpl implements DesunService {
 			curstate = "0";
 		}
 		sb.append("<curstate>" + curstate + "</curstate>");
-		sb.append("<body>");
+		sb.append("</body>");
 		sb.append("</root>");
 		return sb.toString();
 	}

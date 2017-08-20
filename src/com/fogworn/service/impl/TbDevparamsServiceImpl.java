@@ -1,5 +1,6 @@
 package com.fogworn.service.impl;
 
+import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.fogworn.service.TbDevparamsService;
 
 @Service("tbDevparamsService")
 public class TbDevparamsServiceImpl extends BaseService<TbDevparams> implements TbDevparamsService {
+	private final static Logger log= Logger.getLogger(TbDevparams2ServiceImpl.class);
 	@Autowired
     private TbDevparamsMapper<TbDevparams> mapper;
 	@Autowired
@@ -129,6 +131,7 @@ public class TbDevparamsServiceImpl extends BaseService<TbDevparams> implements 
 					result = fogWarnExinterface.coverOff(dev);
 				}
 			}
+			System.out.println(result);
 			if(suc.equals(result)){
 				obj.setDevstate(state);
 				mapper.updateBySelective((TbDevparams)obj);
