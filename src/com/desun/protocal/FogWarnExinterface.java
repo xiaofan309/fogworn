@@ -27,7 +27,6 @@ public class FogWarnExinterface {
 			return null;
 		}
 		BlockingQueue<byte[]> blockingQueue = new LinkedBlockingQueue<byte[]>();
-		// IoSession session=ServerHandler.getSession(dev.getDevno());
 		IoSession session = ServerHandler.getSession(dev.getDevno());
 		if (null == session) {
 			return null;

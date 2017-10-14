@@ -131,7 +131,7 @@ public class TbDevparamsServiceImpl extends BaseService<TbDevparams> implements 
 					result = fogWarnExinterface.coverOff(dev);
 				}
 			}
-			System.out.println(result);
+			//System.out.println(result);
 			if(suc.equals(result)){
 				obj.setDevstate(state);
 				mapper.updateBySelective((TbDevparams)obj);
