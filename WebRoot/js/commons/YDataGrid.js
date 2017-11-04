@@ -60,7 +60,6 @@ var YDataGrid = function(config){
 						YiYa.closeProgress();
 						Form.edit.form('load',result.data);
 						Win.edit.dialog('open'); 
-						
 						//回调函数
 						if(jQuery.isFunction(callback)){
 							callback(result);

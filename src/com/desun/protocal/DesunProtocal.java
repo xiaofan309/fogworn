@@ -47,7 +47,8 @@ public class DesunProtocal {
 	public final static byte Funcode_NightAutoOn=0x09; 
 	public final static byte Funcode_VisibilityDeal=0x0B;
 	public final static byte Funcode_DataTransType=0x07; 
-	
+	public final static byte Funcode_LedControlOn=0x08;
+	//public final static byte Funcode_LedSpeed=0x51;
 
 	
 	
@@ -59,11 +60,6 @@ public class DesunProtocal {
 		return ret;
 	}
 	
-
-	
-	
-	
-
 	public byte[] packCoverOn(byte addr,byte flickerfrequency,byte luminance,byte guidlights,boolean tailenable,int taildelay){
 		byte[] ret = new byte[DataLen];
 		int i=0;
@@ -73,16 +69,13 @@ public class DesunProtocal {
 		ret[i++]=(byte)(tailenable?((0x01<<7)|taildelay&0xFF):taildelay) ;
 		return assemble(Funcode_CoverOn,addr,ret);
 	}
-	
-	
+		
 	public byte[] packCoverOff(byte addr){
 		byte[] ret = new byte[DataLen];
 		Arrays.fill(ret, (byte)0);
 		return assemble(Funcode_CoverOff,addr,ret);
 	}
 	
-
-
 	public byte[] packPassOn(byte addr,byte flickerfrequency,byte luminance,byte guidlights,boolean tailenable,int taildelay){
 		byte[] ret = new byte[DataLen];
 		int i=0;
@@ -126,11 +119,6 @@ public class DesunProtocal {
 		return assemble(Funcode_NightParam,addr,ret);
 	}
 	
-	
-	
-	
-
-
 	public byte[] packNightAutoOn(byte addr,boolean order){
 		byte[] ret = new byte[DataLen];
 		Arrays.fill(ret, (byte)0);
@@ -138,6 +126,30 @@ public class DesunProtocal {
 		return assemble(Funcode_NightAutoOn,addr,ret);
 	}
 	
+	public byte[] packLedControlOn(byte addr,boolean order){
+		byte[] ret = new byte[DataLen];
+		Arrays.fill(ret, (byte)0);
+		ret[0]= order?((byte)0x01):((byte)0x00);
+		return assemble(Funcode_LedControlOn,addr,ret);
+	}
+	
+	
+	public byte[] packLedSpeed(byte addr,int order){
+		//45 51 30 30 31 01 03 02 00 40
+		byte[] ret = new byte[10];
+		Arrays.fill(ret, (byte)0);
+		ret[0]= (byte) 0x45;
+		ret[1]= (byte) 0x51;
+		ret[2]= (byte) 0x30;
+		ret[3]= (byte) 0x30;
+		ret[4]= (byte) 0x31;
+		ret[5]= (byte) 0x01;
+		ret[6]= (byte) 0x03;
+		ret[7]= (byte) order;//1234对应4个节目 1 60 2 80 3 100 4 40
+		ret[8]= (byte) 0x00;
+		ret[9]= (byte) 0x40;
+		return ret;
+	}
 
 	public byte[] packVisibilityDeal(byte addr,int order){
 		byte[] ret = new byte[DataLen];

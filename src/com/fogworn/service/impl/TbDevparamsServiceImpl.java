@@ -139,6 +139,22 @@ public class TbDevparamsServiceImpl extends BaseService<TbDevparams> implements 
 			}else{
 				result = "当前系统开关过于频繁，请稍后再操作";
 			}
+		}else if("ledcontrol".equals(paramName)){//LED控制方式
+			result = fogWarnExinterface.ledControlOn(dev, obj.getLedcontrol().intValue()==1 );
+			if(suc.equals(result)){
+				param = new TbDevparams();
+				param.setId(obj.getId());
+				param.setLedcontrol(obj.getLedcontrol());
+				mapper.updateBySelective(param);
+			}
+		}else if("ledspeed".equals(paramName)){//LED控制方式
+			result = fogWarnExinterface.ledSpeed(dev, obj.getLedspeed().intValue() );
+			if(suc.equals(result)){
+				param = new TbDevparams();
+				param.setId(obj.getId());
+				param.setLedspeed(obj.getLedspeed());
+				mapper.updateBySelective(param);
+			}
 		}
 		if(result == null)
 			result = "指令解析失败";

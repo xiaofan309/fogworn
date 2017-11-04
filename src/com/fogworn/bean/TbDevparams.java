@@ -15,6 +15,8 @@ public class TbDevparams extends BaseBean {
 	private Integer measurenum;// 能见度测量固定值
 	private Integer lightopen;// 尾迹开启：1是0否
 	private Integer lighttime;// 尾迹时间
+	private Integer ledcontrol;
+	private Integer ledspeed;
 		public Integer getId() {	    return this.id;	}	public void setId(Integer id) {	    this.id=id;	}	public Integer getDevid() {	    return this.devid;	}	public void setDevid(Integer devid) {	    this.devid=devid;	}	public Integer getDevstate() {	    return this.devstate;	}	public void setDevstate(Integer devstate) {	    this.devstate=devstate;	}	public Integer getVisibility() {	    return this.visibility;	}	public void setVisibility(Integer visibility) {	    this.visibility=visibility;	}	public Integer getGuidlights() {	    return this.guidlights;	}	public void setGuidlights(Integer guidlights) {	    this.guidlights=guidlights;	}	public Integer getLuminance() {	    return this.luminance;	}	public void setLuminance(Integer luminance) {	    this.luminance=luminance;	}	public Integer getFlickerfrequency() {	    return this.flickerfrequency;	}	public void setFlickerfrequency(Integer flickerfrequency) {	    this.flickerfrequency=flickerfrequency;	}	public Integer getLuminancethreshold() {	    return this.luminancethreshold;	}	public void setLuminancethreshold(Integer luminancethreshold) {	    this.luminancethreshold=luminancethreshold;	}	public Integer getWorkpoint() {	    return this.workpoint;	}	public void setWorkpoint(Integer workpoint) {	    this.workpoint=workpoint;	}
 	public Integer getNightenable() {
 		return nightenable;
@@ -63,5 +65,17 @@ public class TbDevparams extends BaseBean {
 	}
 	public void setLighttime(Integer lighttime) {
 		this.lighttime = lighttime;
+	}
+	public Integer getLedcontrol() {
+		return ledcontrol;
+	}
+	public void setLedcontrol(Integer ledcontrol) {
+		this.ledcontrol = ledcontrol;
+	}
+	public Integer getLedspeed() {
+		return ledspeed;
+	}
+	public void setLedspeed(Integer ledspeed) {
+		this.ledspeed = ledspeed;
 	}
 }

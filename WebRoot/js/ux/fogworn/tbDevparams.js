@@ -1,7 +1,9 @@
 $package('YiYa.tbDevparams');
 YiYa.tbDevparams = function(){
 	var _box = null;
+	
 	var getLogs = function(result){
+	
 		//先设置界面
 		if(result.data.measuretype == 3){
 			$('#measurenum').combobox({
@@ -46,7 +48,7 @@ YiYa.tbDevparams = function(){
 	var _this = {
 		config:{
 			event:{
-				edit:function(){
+				edit:function(){					
 					_box.handler.edit(getLogs);
 				}
 			},
@@ -226,6 +228,9 @@ function sendParam(name, type, state){
 		if(!checknightenable()){
 			return;
 		}
+		if(!checkledcontrol()){
+			return;
+		}
 		if(!checkparams()){
 			return;
 		}
@@ -243,6 +248,10 @@ function sendParam(name, type, state){
 		}
 	}else if(name=='params'){
 		if(!checkparams()){
+			return;
+		}
+	}else if(name=='ledcontrol'){
+		if(!checkledcontrol()){
 			return;
 		}
 	}
@@ -291,6 +300,14 @@ function checknightenable(){
 	var type = $('#editForm input[name=nightenable]:checked').val();
 	if(type==null || type=='' || type == 'undefined'){
 		YiYa.alert('提示','请先选择夜间自动开启','info');
+		return false;
+	}
+	return true;
+}
+function checkledcontrol(){
+	var type = $('#editForm input[name=ledcontrol]:checked').val();
+	if(type==null || type=='' || type == 'undefined'){
+		YiYa.alert('提示','请先选择LED屏幕控制方式','info');
 		return false;
 	}
 	return true;

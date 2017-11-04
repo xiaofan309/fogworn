@@ -6,10 +6,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.apache.mina.core.buffer.IoBuffer;
+import org.apache.mina.core.service.IoConnector;
+import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.desun.mina.MinaTcpClient;
 import com.desun.mina.ServerHandler;
 import com.fogworn.bean.TbDev;
 
@@ -19,6 +22,8 @@ public class FogWarnExinterface {
 	private final static Logger logger = Logger.getLogger(FogWarnExinterface.class);
 	private final static long TIME_OUT = 8000;
 	private final static String CommTimeOut = "通讯超时";
+	public final static String RESPONSE_SUCESS="应答信息";
+	
 	@Autowired
 	private DesunProtocal desunProtocal;
 
@@ -62,6 +67,66 @@ public class FogWarnExinterface {
 			return CommTimeOut;
 		}
 		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+	public String ledControlOn(TbDev dev, boolean order) {
+		byte[] sendData = desunProtocal.packLedControlOn((byte) Long.parseLong(dev.getDevno()), order);
+		byte[] receiveData = dataInterchange(dev, sendData);
+		if (null == receiveData) {
+			return CommTimeOut;
+		}
+		return desunProtocal.parseResponse(receiveData, sendData);
+	}
+	
+	public String ledSpeed(TbDev dev, int order) {
+		byte[] sendData = desunProtocal.packLedSpeed((byte) Long.parseLong(dev.getDevno()), order);
+		//byte[] receiveData = dataInterchange(dev, sendData);		
+		MinaTcpClient client = new MinaTcpClient(dev.getDevip(),15002);  
+
+		IoBuffer buffer = IoBuffer.allocate(sendData.length);  
+		buffer.setAutoExpand(true);  
+		
+		buffer.setAutoShrink(true);  
+		buffer.put(sendData);  
+		buffer.flip();  
+		client.session.write(buffer);  
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		  
+		// 关闭会话，待所有线程处理结束后  
+		client.connector.dispose(true);  		
+		
+		
+//		if (null == sendData) {
+//			return null;
+//		}
+//		BlockingQueue<byte[]> blockingQueue = new LinkedBlockingQueue<byte[]>();
+//		IoSession session = ServerHandler.getSession(dev.getDevno());
+//		if (null == session) {
+//			return null;
+//		}
+//		session.setAttribute(ServerHandler.RECEIVE_DATA, blockingQueue);
+//		logger.warn("sendData=" + BitConverter.bytes2HexStr(sendData));
+//		session.write(IoBuffer.wrap(sendData));
+//		byte[] receiveData = null;
+//		try {
+//			receiveData = blockingQueue.poll(TIME_OUT, TimeUnit.MILLISECONDS);
+//			logger.warn("receiveData=" + BitConverter.bytes2HexStr(receiveData));
+//		} catch (InterruptedException e) {
+//			receiveData = null;
+//			;
+//		}
+//		session.removeAttribute(ServerHandler.RECEIVE_DATA);
+		//return receiveData;
+		
+//		if (null == receiveData) {
+//			return CommTimeOut;
+//		}
+//		return desunProtocal.parseResponse(receiveData, sendData);
+		return RESPONSE_SUCESS;
 	}
 
 	public String visibilityDeal(TbDev dev, int order) {

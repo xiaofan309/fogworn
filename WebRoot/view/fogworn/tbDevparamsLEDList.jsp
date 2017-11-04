@@ -35,7 +35,6 @@
 				$('#sendTypeFieldset').hide();
 			}
 		});
-		
     </script>
   </head>
 <body class="easyui-layout">
@@ -137,22 +136,6 @@
 							<input type="radio" value="0" id="nightenable0" name="nightenable">
 								<label for="nightenable0" style="width: 45px; text-align: left;">关闭</label>
 							<a href="#" id="btn-nightenable" class="easyui-linkbutton" onclick="sendParam('nightenable')">设置</a>
-						</fieldset>
-						<fieldset title="LED屏幕控制方式">
-							<legend>LED屏幕控制方式</legend>
-							<input type="radio" value="0" id="ledcontrol0" name="ledcontrol">
-								<label for="ledcontrol0" style="width: 45px; text-align: left;">主控机控制</label>
-							<input type="radio" value="1" id="ledcontrol1" name="ledcontrol">
-								<label for="ledcontrol1" style="width: 45px; text-align: left;">上位机控制</label>
-							<a href="#" id="btn-ledcontrol" class="easyui-linkbutton" onclick="sendParam('ledcontrol')">设置</a>
-						</fieldset>
-						<fieldset title="LED限速值">
-							<legend>LED限速值</legend>
-							<input name="ledspeed" id="ledspeed" class="easyui-combobox ui-text" style="width:110px;"
-								 	data-options="required:true, valueField:'id', textField:'text', editable:false, panelHeight:'auto',
-								 	data:[{id:'4',text:'4（LED限速40）'},{id:'1',text:'1（LED限速60）'},{id:'2',text:'2（LED限速80）'}
-								 		,{id:'3',text:'3（LED限速100）'}]">
-							<a href="#" id="btn-ledcontrol" class="easyui-linkbutton" onclick="sendParam('ledspeed')">设置</a>
 						</fieldset>
 						<fieldset title="能见度测量方式" style="margin-top: 30px;">
 							<legend>能见度测量方式</legend>

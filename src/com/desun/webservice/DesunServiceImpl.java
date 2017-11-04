@@ -178,6 +178,7 @@ public class DesunServiceImpl implements DesunService {
 			map.put("luminance", tbDevparams.getLuminance() + "");
 			map.put("lightopen", tbDevparams.getLightopen() + "");
 			map.put("lighttime", tbDevparams.getLighttime() + "");
+			map.put("ledcontrol", tbDevparams.getLedcontrol() + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return createGetParameterErrorXml();

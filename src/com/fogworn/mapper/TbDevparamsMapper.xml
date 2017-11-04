@@ -22,6 +22,8 @@
 	<result column="measurenum" property="measurenum"/>
 	<result column="lightopen" property="lightopen"/>
 	<result column="lighttime" property="lighttime"/>
+	<result column="ledcontrol" property="ledcontrol"/>
+	<result column="ledspeed" property="ledspeed"/>
 </resultMap>
 <resultMap type="com.fogworn.bean.TbDevparamsEx" id="ExtendResultMap">
 	<result column="devno" property="devno"/>
@@ -35,7 +37,7 @@
 <!-- tb_devparams table all fields -->
 <sql id="Base_Column_List" >
 	 t.id,t.devid,t.devstate,t.visibility,t.guidlights,t.luminance,t.flickerfrequency,t.luminancethreshold,t.workpoint,t.nightenable
-	 ,t.limitspeed,t.sendtype,t.worktype,t.measuretype,t.measurenum,t.lightopen,t.lighttime
+	 ,t.limitspeed,t.sendtype,t.worktype,t.measuretype,t.measurenum,t.lightopen,t.lighttime,t.ledcontrol,t.ledspeed
 </sql>
    
    
@@ -101,7 +103,7 @@ where 1=1
   insert into tb_devparams(id,devid,devstate,visibility,guidlights,luminance,flickerfrequency,luminancethreshold,workpoint,nightenable
   ,limitspeed,sendtype,worktype,measuretype,measurenum,lightopen,lighttime)
  values(#{id},#{devid},#{devstate},#{visibility},#{guidlights},#{luminance},#{flickerfrequency},#{luminancethreshold},#{workpoint},#{nightenable}
- 	,#{limitspeed},#{sendtype},#{worktype},#{measuretype},#{measurenum},#{lightopen},#{lighttime})
+ 	,#{limitspeed},#{sendtype},#{worktype},#{measuretype},#{measurenum},#{lightopen},#{lighttime},#{ledcontrol})
 </insert>
 
 <!-- 根据id，修改记录-->  
@@ -109,7 +111,7 @@ where 1=1
   update tb_devparams set devstate=#{devstate},visibility=#{visibility},guidlights=#{guidlights},luminance=#{luminance},
   	flickerfrequency=#{flickerfrequency},luminancethreshold=#{luminancethreshold},workpoint=#{workpoint},nightenable=#{nightenable}
   	,limitspeed=#{limitspeed},sendtype=#{sendtype},worktype=#{worktype},measuretype=#{measuretype},measurenum=#{measurenum}
-  	,lightopen=#{lightopen},lighttime=#{lighttime} where id=#{id}
+  	,lightopen=#{lightopen},lighttime=#{lighttime},ledcontrol=#{ledcontrol},ledspeed=#{ledspeed} where id=#{id}
  </update>
  
  <!-- 修改记录，只修改只不为空的字段 -->
@@ -160,6 +162,12 @@ where 1=1
 	</if>
 	<if test="lighttime != null  ">
 		lighttime=#{lighttime}
+	</if>
+	<if test="ledcontrol != null  ">
+		ledcontrol=#{ledcontrol}
+	</if>
+	<if test="ledspeed != null  ">
+		ledspeed=#{ledspeed}
 	</if>
 	</trim> where id=#{id}
 </update>
@@ -212,6 +220,9 @@ where 1=1
 	</if>
 	<if test="lighttime != null  ">
 		lighttime=#{lighttime}
+	</if>
+	<if test="ledcontrol != null  ">
+		ledcontrol=#{ledcontrol}
 	</if>
 	</trim> where devid=#{devid}
 </update>
