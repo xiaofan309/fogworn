@@ -101,9 +101,9 @@ where 1=1
 	SELECT LAST_INSERT_ID()
   </selectKey>
   insert into tb_devparams(id,devid,devstate,visibility,guidlights,luminance,flickerfrequency,luminancethreshold,workpoint,nightenable
-  ,limitspeed,sendtype,worktype,measuretype,measurenum,lightopen,lighttime)
+  ,limitspeed,sendtype,worktype,measuretype,measurenum,lightopen,lighttime,ledcontrol,ledspeed)
  values(#{id},#{devid},#{devstate},#{visibility},#{guidlights},#{luminance},#{flickerfrequency},#{luminancethreshold},#{workpoint},#{nightenable}
- 	,#{limitspeed},#{sendtype},#{worktype},#{measuretype},#{measurenum},#{lightopen},#{lighttime},#{ledcontrol})
+ 	,#{limitspeed},#{sendtype},#{worktype},#{measuretype},#{measurenum},#{lightopen},#{lighttime},#{ledcontrol},#{ledspeed})
 </insert>
 
 <!-- 根据id，修改记录-->  
@@ -223,6 +223,9 @@ where 1=1
 	</if>
 	<if test="ledcontrol != null  ">
 		ledcontrol=#{ledcontrol}
+	</if>
+	<if test="ledspeed != null  ">
+		ledspeed=#{ledspeed}
 	</if>
 	</trim> where devid=#{devid}
 </update>

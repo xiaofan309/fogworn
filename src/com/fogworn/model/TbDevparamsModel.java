@@ -13,6 +13,7 @@ public class TbDevparamsModel extends BaseModel {
 	private String offlinetime;//   离线时间
 	private String curstate;//   当前状态
 	private String devtype;//   设备类型
+	
 		public Integer getId() {	    return this.id;	}	public void setId(Integer id) {	    this.id=id;	}	public String getDevid() {	    return this.devid;	}	public void setDevid(String devid) {	    this.devid=devid;	}	public String getDevstate() {	    return this.devstate;	}	public void setDevstate(String devstate) {	    this.devstate=devstate;	}	public Integer getVisibility() {	    return this.visibility;	}	public void setVisibility(Integer visibility) {	    this.visibility=visibility;	}	public Integer getGuidlights() {	    return this.guidlights;	}	public void setGuidlights(Integer guidlights) {	    this.guidlights=guidlights;	}	public Integer getLuminance() {	    return this.luminance;	}	public void setLuminance(Integer luminance) {	    this.luminance=luminance;	}	public Integer getFlickerfrequency() {	    return this.flickerfrequency;	}	public void setFlickerfrequency(Integer flickerfrequency) {	    this.flickerfrequency=flickerfrequency;	}	public Integer getLuminancethreshold() {	    return this.luminancethreshold;	}	public void setLuminancethreshold(Integer luminancethreshold) {	    this.luminancethreshold=luminancethreshold;	}	public Integer getWorkpoint() {	    return this.workpoint;	}	public void setWorkpoint(Integer workpoint) {	    this.workpoint=workpoint;	}
 	public String getNightenable() {
 		return nightenable;
